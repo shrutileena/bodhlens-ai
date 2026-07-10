@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: documind-ai
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/documind
+    username: postgres
+    password: postgres@123
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+      
+    show-sql: true
+    
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
