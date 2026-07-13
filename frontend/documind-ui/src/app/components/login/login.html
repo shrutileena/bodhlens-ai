@@ -1,0 +1,18 @@
+<div class="login-container">
+    <h1>Documind AI</h1>
+
+    <h2>Welcome Back</h2>
+
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="Enter your email" formControlName="email">
+
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Enter your password" formControlName="password">
+
+        <button type="submit">
+            Login
+        </button>
+    </form>
+</div>
