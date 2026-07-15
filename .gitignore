@@ -12,11 +12,11 @@ Thumbs.db
 .env
 
 # Backend
-backend/documind-ai/target/
-backend/documind-ai/.classpath
-backend/documind-ai/.project
-backend/documind-ai/.settings/
-backend/documind-ai/.factorypath
+backend/bodhlens-ai/target/
+backend/bodhlens-ai/.classpath
+backend/bodhlens-ai/.project
+backend/bodhlens-ai/.settings/
+backend/bodhlens-ai/.factorypath
 
 # Frontend
 frontend/node_modules/
