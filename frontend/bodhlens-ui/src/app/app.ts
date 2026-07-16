@@ -1,11 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Login } from './components/login/login';
-import { Register } from './components/register/register';
+// import { Login } from './components/login/login';
+// import { Register } from './components/register/register';
+import { NgxSonnerToaster } from 'ngx-sonner';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Login, Register],
+  imports: [RouterOutlet, NgxSonnerToaster],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

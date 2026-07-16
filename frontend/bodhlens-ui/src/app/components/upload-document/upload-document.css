@@ -1,0 +1,138 @@
+* {
+    box-sizing: border-box;
+}
+
+.upload-container {
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: white;
+    text-align: center;
+}
+
+.upload-container h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    font-size: 17px;
+    color: #d1d5db;
+    margin-bottom: 50px;
+}
+
+.upload-box {
+    max-width: 750px;
+    margin: auto;
+    padding: 20px 35px;
+
+    border: 2px dashed rgba(255,255,255,.35);
+    border-radius: 24px;
+
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(16px);
+
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.upload-box:hover {
+    border-color: rgba(255,255,255,.7);
+    background: rgba(255,255,255,.12);
+    transform: translateY(-4px);
+}
+
+.upload-icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+}
+
+.upload-box h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.supported-files {
+    color: #cbd5e1;
+    font-size: 16px;
+    margin-bottom: 35px;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin: 25px 0;
+}
+
+.divider span {
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,.3);
+}
+
+.divider p {
+    color: #d1d5db;
+    font-size: 15px;
+    letter-spacing: 2px;
+}
+
+.browse-btn {
+    padding: 15px 35px;
+
+    background: transparent;
+    color: white;
+
+    border: 2px solid #8b5cf6;
+    border-radius: 999px;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: .3s;
+}
+
+.browse-btn:hover {
+    background: #8b5cf6;
+    transform: scale(1.05);
+}
+
+.selected-file {
+    margin-top: 25px;
+    color: #d1d5db;
+    font-size: 17px;
+}
+
+.upload-btn {
+    margin-top: 30px;
+
+    padding: 16px 50px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    color: white;
+
+    font-size: 20px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: .3s;
+}
+
+.upload-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(99,102,241,.45);
+}
+
+.upload-btn:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.upload-btn:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}

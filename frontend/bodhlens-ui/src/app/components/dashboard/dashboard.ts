@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth';
+import { NotificationService } from '../../services/notification';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,14 +9,42 @@ import { AuthService } from '../../services/auth';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard {
+export class Dashboard implements OnInit {
 
   private router = inject(Router);
 
   private authService = inject(AuthService);
 
+  private notification = inject(NotificationService);
+
+  firstName = '';
+
+  ngOnInit(): void {
+    this.firstName = this.authService.getFirstName() ?? 'User';
+  }
+
   logout() {
+
     this.authService.logout();
+
+    this.notification.success('Logged out successfully!')
+
     this.router.navigate(['/login']);
+  }
+
+  goToUpload() {
+    this.router.navigate(['/upload-document']);
+  }
+
+  goToDocuments() {
+    this.notification.info('Coming Soon!');
+  }
+
+  goToChat() {
+    this.notification.info('Upload a document first')
+  }
+  
+  comingSoon() {
+    this.notification.info('Coming Soon!');
   }
 }

@@ -3,6 +3,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { passwordMatchValidator } from '../../validators/password-match.validator';
 import { AuthService } from '../../services/auth';
 import { Router ,RouterLink } from '@angular/router';
+import { toast } from 'ngx-sonner';
+import { NotificationService } from '../../services/notification';
 
 @Component({
   selector: 'app-register',
@@ -11,9 +13,14 @@ import { Router ,RouterLink } from '@angular/router';
   styleUrl: './register.css',
 })
 export class Register {
+
   private fb = inject(FormBuilder);
+
   private authService = inject(AuthService);
+
   private router = inject(Router);
+  
+  private notification = inject(NotificationService);
 
   registerForm = this.fb.nonNullable.group(
     {
@@ -44,17 +51,18 @@ export class Register {
     }
 
     this.authService.register(registerRequest).subscribe({
-
       next: (response) => {
-        console.log("Registration Successful");
-        console.log(response);
+        // console.log('Registration Successful');
+        // console.log(response);
+        this.notification.success('Account created successfully! Please Sign in.');
         this.router.navigate(['/login']);
       },
 
       error: (error) => {
-        console.log("Registration Failed");
+        // console.log('Registration Failed');
         console.log(error);
-      }
+        this.notification.error('Registration Failed! Please try again.');
+      },
     });
   }
 }

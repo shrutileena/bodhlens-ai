@@ -32,5 +32,14 @@ export class AuthService {
 
     logout() {
         localStorage.removeItem('token');
+        localStorage.removeItem('firstName');
+    }
+
+    saveFirstName(firstName: string) {
+        localStorage.setItem('firstName', firstName);
+    }
+
+    getFirstName(): string | null {
+        return localStorage.getItem('firstName');
     }
 }

@@ -1,68 +1,72 @@
-<div class="register-container">
+<div class="register-page">
+    <div class="register-container">
 
-    <h1>BodhLens AI</h1>
+        <h1>BodhLens AI</h1>
 
-    <h2>Create your Account</h2>
+        <h2>Create your Account</h2>
 
-    <form class="register-form" [formGroup]="registerForm" (ngSubmit)="register()">
+        <form class="register-form" [formGroup]="registerForm" (ngSubmit)="register()">
 
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" placeholder="Enter your first name" formControlName="firstName">
-        @if (registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched) {
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" placeholder="Enter your first name" formControlName="firstName">
+            @if (registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched) {
             <small class="error">
                 First Name is required
             </small>
-        }
+            }
 
-        <label for="lastName">First Name</label>
-        <input type="text" id="lastName" placeholder="Enter your last name" formControlName="lastName">
-        @if (registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched) {
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" placeholder="Enter your last name" formControlName="lastName">
+            @if (registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched) {
             <small class="error">
                 Last Name is required
             </small>
-        }
+            }
 
-        <label for="email">Email</label>
-        <input type="text" id="email" placeholder="Enter your email" formControlName="email">
-        @if (registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched) {
+            <label for="email">Email</label>
+            <input type="text" id="email" placeholder="Enter your email" formControlName="email">
+            @if (registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched) {
             <small class="error">
                 Email is required
             </small>
-        }
-        @if (registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched) {
+            }
+            @if (registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched) {
             <small class="error">
                 Please enter a valid email
             </small>
-        }
+            }
 
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter your password" formControlName="password">
-        @if (registerForm.get('password')?.hasError('minLength') && registerForm.get('password')?.touched) {
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" formControlName="password">
+            @if (registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched) {
             <small class="error">
                 Password must be at least 8 characters
             </small>
-        }
- 
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" placeholder="Confirm your password" formControlName="confirmPassword">
-        @if (registerForm.get('confirmPassword')?.hasError('required') && registerForm.get('confirmPassword')?.touched) {
+            }
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" placeholder="Confirm your password"
+                formControlName="confirmPassword">
+            @if (registerForm.get('confirmPassword')?.hasError('required') &&
+            registerForm.get('confirmPassword')?.touched) {
             <small class="error">
                 Confirm Password is required
             </small>
-        }
-        @if (registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched) {
+            }
+            @if (registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched) {
             <small class="error">
                 Password do not match
             </small>
-        }
+            }
 
-        <button type="submit">
-            Register
-        </button>
+            <button type="submit">
+                Register
+            </button>
 
-        <p class="login-link">
-            Already have an account?
-            <a routerLink="/login">Login</a>
-        </p>
-    </form>
+            <p class="login-link">
+                Already have an account?
+                <a routerLink="/login">Login</a>
+            </p>
+        </form>
+    </div>
 </div>
