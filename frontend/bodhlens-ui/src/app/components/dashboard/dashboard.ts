@@ -37,7 +37,9 @@ export class Dashboard implements OnInit {
   }
 
   goToDocuments() {
-    this.notification.info('Coming Soon!');
+    console.log('inside gotodocuments function');
+    
+    this.router.navigate(['/documents']);
   }
 
   goToChat() {

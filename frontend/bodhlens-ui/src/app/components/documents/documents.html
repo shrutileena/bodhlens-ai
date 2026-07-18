@@ -1,0 +1,55 @@
+<app-back-button></app-back-button>
+<div class="documents-container">
+
+    <h1>📚 My Documents</h1>
+
+    <p class="subtitle">
+        Manage all your uploaded documents.
+    </p>
+
+    <button class="upload-btn"
+            (click)="uploadDocuments()">
+        ⬆ Upload New Document
+    </button>
+
+    <p>Count: {{ documents.length }}</p>
+
+    @if(documents.length < 1) {
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                📄
+            </div>
+
+            <h2>No documents uploaded yet</h2>
+
+            <p>
+                Upload your first document to start chatting with AI.
+            </p>
+        
+        </div>
+    } @else {
+        <div class="documents-grid">
+
+            @for(document of documents; track document.id) {
+
+                <div class="document-card">
+                    <div class="document-icon">
+                        📄
+                    </div>
+                    
+                    <h3>{{ document.fileName }}</h3>
+
+                    <p class="document-status">
+                        {{ document.status }}
+                    </p>
+
+                    <p class="document-date">
+                        {{ document.createdAt | date:'dd MM yyyy, hh:mm a' }}
+                    </p>
+                </div>
+            }
+        </div>
+    }
+
+</div>

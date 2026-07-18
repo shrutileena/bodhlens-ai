@@ -1,0 +1,16 @@
+import { HttpClient } from '@angular/common/http';
+import { inject, Service } from '@angular/core';
+import { Observable } from 'rxjs';
+import { DocumentResponse } from '../models/document-response';
+
+@Service()
+export class DocumentService {
+
+    private http = inject(HttpClient);
+
+    private apiUrl = `http://localhost:8080/api/documents`; 
+
+    getDocuments(): Observable<DocumentResponse[]> {
+        return this.http.get<DocumentResponse[]>(this.apiUrl);
+    }
+}

@@ -1,0 +1,52 @@
+.back-btn {
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    margin-top: 20px;
+    margin-left: 20px;
+
+    padding: 0;
+
+    background: transparent;
+    border: none;
+
+    color: white;
+
+    font-size: 18px;
+    font-weight: 600;
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition: transform .2s ease,
+                color .2s ease;
+
+}
+
+.back-btn:hover {
+
+    transform: translateX(-4px);
+    color: #c7d2fe;
+
+}
+
+.back-btn:active {
+
+    transform: translateX(-2px);
+
+}
+
+.material-symbols-outlined {
+
+    font-size: 22px;
+    line-height: 1;
+
+}
+
+.text {
+
+    line-height: 1;
+
+}

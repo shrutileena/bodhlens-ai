@@ -1,10 +1,12 @@
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { NotificationService } from '../../services/notification';
 import { DocumentUpload } from '../../services/document-upload';
+import { BackButton } from '../../shared/back-button/back-button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-upload-document',
-  imports: [],
+  imports: [BackButton],
   templateUrl: './upload-document.html',
   styleUrl: './upload-document.css',
 })
@@ -13,6 +15,8 @@ export class UploadDocument {
   private notification = inject(NotificationService);
 
   private documentUpload = inject(DocumentUpload);
+
+  private router = inject(Router);
 
   selectedFile: File | null = null;
 
@@ -56,5 +60,9 @@ export class UploadDocument {
       }
     });
     console.log(this.selectedFile);
+  }
+
+  goToDocuments() {
+    this.router.navigate(['./documents']);
   }
 }

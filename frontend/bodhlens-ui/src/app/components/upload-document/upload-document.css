@@ -18,7 +18,7 @@
 .subtitle {
     font-size: 17px;
     color: #d1d5db;
-    margin-bottom: 50px;
+    margin-bottom: 34px;
 }
 
 .upload-box {
@@ -55,14 +55,14 @@
 .supported-files {
     color: #cbd5e1;
     font-size: 16px;
-    margin-bottom: 35px;
+    margin-bottom: 16px;
 }
 
 .divider {
     display: flex;
     align-items: center;
     gap: 18px;
-    margin: 25px 0;
+    margin: 12px 0;
 }
 
 .divider span {
@@ -135,4 +135,45 @@
 .upload-btn:disabled:hover {
     transform: none;
     box-shadow: none;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px 0;
+}
+
+.documents-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform .2s ease,
+                color .2s ease;
+}
+
+.documents-link:hover {
+    transform: translateX(4px);
+    color: #c7d2fe;
+}
+
+.documents-link:active {
+    transform: translateX(2px);
+}
+
+.documents-link .material-symbols-outlined {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.documents-link .text {
+    line-height: 1;
 }
