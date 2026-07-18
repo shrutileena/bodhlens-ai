@@ -4,6 +4,7 @@ import { BackButton } from '../../shared/back-button/back-button';
 import { DocumentService } from '../../services/document-service';
 import { DocumentResponse } from '../../models/document-response';
 import { DatePipe } from '@angular/common';
+import { NotificationService } from '../../services/notification';
 
 @Component({
   selector: 'app-documents',
@@ -18,6 +19,8 @@ export class Documents implements OnInit {
   private documentService = inject(DocumentService);
 
   private cdr = inject(ChangeDetectorRef);
+
+  private notification = inject(NotificationService);
 
   documents: DocumentResponse[] = [];
   
@@ -43,6 +46,36 @@ export class Documents implements OnInit {
       error: (error) => {
         console.log(error);
         
+      }
+    })
+  }
+
+  viewDocument(document: DocumentResponse): void {
+    this.documentService.viewDocument(document.id).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+      },
+      error: (error) => {
+        console.log(error);
+        this.notification.error('Failed to open document');
+      }
+    });
+  }
+
+  chat(document: DocumentResponse): void {
+    this.router.navigate(['/chat', document.id]);
+  }
+
+  deleteDocument(document: DocumentResponse): void {
+    this.documentService.deleteDocument(document.id).subscribe({
+      next: (response) => {
+        this.notification.success(response.message);
+        this.loadDocuments();
+      },
+      error: (error) => {
+        console.log(error);
+        this.notification.error('Failed to delete document');
       }
     })
   }

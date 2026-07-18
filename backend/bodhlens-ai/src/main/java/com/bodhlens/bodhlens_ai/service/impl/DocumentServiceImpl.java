@@ -1,6 +1,7 @@
 package com.bodhlens.bodhlens_ai.service.impl;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,11 +10,14 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bodhlens.bodhlens_ai.dto.DeleteResponse;
 import com.bodhlens.bodhlens_ai.dto.DocumentResponse;
 import com.bodhlens.bodhlens_ai.entity.Document;
 import com.bodhlens.bodhlens_ai.entity.User;
@@ -73,6 +77,31 @@ public class DocumentServiceImpl implements DocumentService {
 		return documents.stream().map(document -> new DocumentResponse(document.getId(), 
 				document.getFileName(), document.getStatus(), document.getCreatedAt())
 				).toList();
+	}
+
+	@Override
+	public Resource viewDocument(UUID id) throws MalformedURLException {
+		Document document = documentRepository.findById(id).orElseThrow(() -> new RuntimeException("Document not found"));
+		String filePath = document.getFilePath();
+		Path path = Paths.get(filePath);
+		Resource resource = new UrlResource(path.toUri());
+		
+		if(!resource.exists()) {
+			throw new RuntimeException("File not found");
+		}
+		
+		return resource;
+	}
+
+	@Override
+	public DeleteResponse deleteDocument(UUID id) throws IOException {
+		Document document = documentRepository.findById(id).orElseThrow(() -> new RuntimeException("Document not found"));
+		String filePath = document.getFilePath();
+		Path path = Paths.get(filePath);
+		Files.deleteIfExists(path);
+		
+		documentRepository.delete(document);
+		return new DeleteResponse("Document deleted successfully!");
 	}
 
 }

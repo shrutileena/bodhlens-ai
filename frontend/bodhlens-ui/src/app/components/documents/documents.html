@@ -12,8 +12,6 @@
         ⬆ Upload New Document
     </button>
 
-    <p>Count: {{ documents.length }}</p>
-
     @if(documents.length < 1) {
         <div class="empty-state">
 
@@ -45,8 +43,39 @@
                     </p>
 
                     <p class="document-date">
-                        {{ document.createdAt | date:'dd MM yyyy, hh:mm a' }}
+                        {{ document.createdAt | date:'dd-MMM-yyyy, hh:mm a' }}
                     </p>
+
+                    <div class="document-actions">
+
+                        <button
+                            class="action-btn view-btn"
+                            title="View Document"
+                            (click)="viewDocument(document)">
+                            <span class="material-symbols-outlined">
+                                visibility
+                            </span>
+                        </button>
+
+                        <button
+                            class="action-btn chat-btn"
+                            title="Chat"
+                            (click)="chat(document)">
+                            <span class="material-symbols-outlined">
+                                chat
+                            </span>
+                        </button>
+
+                        <button
+                            class="action-btn delete-btn"
+                            title="Delete"
+                            (click)="deleteDocument(document)">
+                            <span class="material-symbols-outlined">
+                                delete
+                            </span>
+                        </button>
+
+                    </div>
                 </div>
             }
         </div>

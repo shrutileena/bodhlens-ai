@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DocumentResponse } from '../models/document-response';
+import { DeleteResponse } from '../models/delete-response';
 
 @Service()
 export class DocumentService {
@@ -12,5 +13,15 @@ export class DocumentService {
 
     getDocuments(): Observable<DocumentResponse[]> {
         return this.http.get<DocumentResponse[]>(this.apiUrl);
+    }
+
+    viewDocument(id: string): Observable<Blob> {
+        return this.http.get(`${this.apiUrl}/${id}`, {
+            responseType: 'blob'
+        });
+    }
+
+    deleteDocument(id: string): Observable<DeleteResponse> {
+        return this.http.delete<DeleteResponse>(`${this.apiUrl}/${id}`);
     }
 }

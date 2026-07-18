@@ -178,11 +178,74 @@
 }
 
 .document-date {
-
     margin-top: 18px;
-
     color: #cbd5e1;
-
     font-size: 15px;
+}
+
+.document-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0);
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .25s ease;
+}
+
+.action-btn:hover {
+
+    transform: translateY(-2px);
+
+    background: rgba(255, 255, 255, 0);
+
+}
+
+.action-btn:active {
+
+    transform: translateY(0);
+
+}
+
+.action-btn .material-symbols-outlined {
+
+    font-size: 18px;
+
+}
+
+.action-btn.view-btn:hover {
+
+    background: rgba(59, 130, 246, 0);
+
+    color: #93c5fd;
+
+}
+
+.action-btn.chat-btn:hover {
+
+    background: rgba(34, 197, 94, 0);
+
+    color: #86efac;
+
+}
+
+.delete-btn:hover {
+
+    background: rgba(239, 68, 68, 0);
+
+    color: #fca5a5;
 
 }

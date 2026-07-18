@@ -5,6 +5,7 @@ import { Dashboard } from './components/dashboard/dashboard';
 import { authGuard } from './guards/auth-guard';
 import { UploadDocument } from './components/upload-document/upload-document';
 import { Documents } from './components/documents/documents';
+import { Chat } from './components/chat/chat';
 
 export const routes: Routes = [
     {
@@ -33,6 +34,11 @@ export const routes: Routes = [
     {
         path: 'documents',
         component: Documents,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'chat/:documentId',
+        component: Chat,
         canActivate: [authGuard]
     }
 ];
