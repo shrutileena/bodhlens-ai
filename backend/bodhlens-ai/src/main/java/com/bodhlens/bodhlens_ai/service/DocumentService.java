@@ -20,4 +20,6 @@ public interface DocumentService {
 	Resource viewDocument(UUID id) throws MalformedURLException;
 
 	DeleteResponse deleteDocument(UUID id) throws IOException;
+
+	DocumentResponse getDocumentById(UUID id);
 }

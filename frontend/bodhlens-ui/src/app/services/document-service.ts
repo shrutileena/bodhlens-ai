@@ -24,4 +24,8 @@ export class DocumentService {
     deleteDocument(id: string): Observable<DeleteResponse> {
         return this.http.delete<DeleteResponse>(`${this.apiUrl}/${id}`);
     }
+
+    getDocumentDetails(id: string): Observable<DocumentResponse> {
+        return this.http.get<DocumentResponse>(`${this.apiUrl}/${id}/details`);
+    }
 }

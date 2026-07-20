@@ -67,6 +67,11 @@ public class DocumentController {
 				.body(resource);
 	}
 	
+	@GetMapping("/{id}/details")
+	public ResponseEntity<DocumentResponse> getDocumentDetails(@PathVariable UUID id) {
+		return ResponseEntity.ok(documentService.getDocumentById(id));
+	}
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<DeleteResponse> deleteDocument(@PathVariable UUID id) throws IOException {
 		return ResponseEntity.ok(documentService.deleteDocument(id));

@@ -43,7 +43,7 @@ export class Dashboard implements OnInit {
   }
 
   goToChat() {
-    this.notification.info('Upload a document first')
+    this.router.navigate(['/chat'])
   }
   
   comingSoon() {

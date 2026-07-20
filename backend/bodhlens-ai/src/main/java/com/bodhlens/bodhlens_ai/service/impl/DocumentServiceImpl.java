@@ -104,4 +104,10 @@ public class DocumentServiceImpl implements DocumentService {
 		return new DeleteResponse("Document deleted successfully!");
 	}
 
+	@Override
+	public DocumentResponse getDocumentById(UUID id) {
+		Document document = documentRepository.findById(id).orElseThrow(() -> new RuntimeException("Document not found"));
+		return new DocumentResponse(document.getId(), document.getFileName(), document.getStatus(), document.getCreatedAt());
+	}
+
 }
