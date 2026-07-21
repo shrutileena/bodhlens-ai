@@ -7,6 +7,8 @@ import { ChatMessage } from '../../models/chat-message';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ChatService } from '../../services/chat-service';
+import { ChatSessionService } from '../../services/chat-session-service';
+import { ChatSession } from '../../models/chat-session';
 
 @Component({
   selector: 'app-chat',
@@ -35,7 +37,13 @@ export class Chat implements OnInit {
 
   private chatService = inject(ChatService);
 
+  private chatSessionService = inject(ChatSessionService);
+
   isThinking = false;
+
+  sessions: ChatSession[] = [];
+
+  selectedSession?: ChatSession;
 
   chatForm = this.fb.group({
     question: ['', Validators.required],
@@ -46,6 +54,7 @@ export class Chat implements OnInit {
 
     if (this.documentId) {
       this.getDocumentDetails();
+      this.loadSessions();
     } else {
       this.loadDocuments();
       this.addAskAiWelcomeMessage();
@@ -59,7 +68,7 @@ export class Chat implements OnInit {
     this.documentService.getDocumentDetails(this.documentId).subscribe({
       next: (response) => {
         this.document = response;
-        this.addWelcomeMessage();
+        // this.addWelcomeMessage();
         this.cdr.detectChanges();
       },
     });
@@ -87,7 +96,10 @@ export class Chat implements OnInit {
   }
 
   send(): void {
-    if(!this.documentId){
+    // if(!this.documentId){
+    //   return;
+    // }
+    if(!this.selectedSession){
       return;
     }
     if (this.chatForm.invalid) {
@@ -117,7 +129,7 @@ export class Chat implements OnInit {
 
     // call backend
     this.chatService
-      .chat(this.documentId, {
+      .chat(this.selectedSession.id, {
         question: question,
       })
       .subscribe({
@@ -126,11 +138,13 @@ export class Chat implements OnInit {
           
           this.isThinking = false;
 
-          this.messages.push({
-            sender: 'AI',
-            message: response.answer,
-            timestamp: new Date(),
-          });
+          // this.messages.push({
+          //   sender: 'AI',
+          //   message: response.answer,
+          //   timestamp: new Date(),
+          // });
+
+          this.loadMessages();
 
           this.cdr.detectChanges();
         },
@@ -164,5 +178,75 @@ export class Chat implements OnInit {
 
   toggleMessage(message: ChatMessage): void {
     message.expanded = !message.expanded;
+  }
+
+  loadSessions() {
+
+    if(!this.documentId) {
+      return;
+    }
+
+    this.chatSessionService.getSessions(this.documentId).subscribe({
+      next: (sessions) => {
+        this.sessions = sessions;
+
+        if(sessions.length === 0) {
+          this.createSession();
+        } else {
+          this.selectedSession = sessions[0];
+          this.loadMessages();
+        }
+      },
+      error: (error) => {
+        console.error('Failed to load chat sessions');
+      }
+    });
+  }
+
+  createSession(): void {
+
+    if(!this.documentId) {
+      return;
+    }
+
+    this.chatSessionService.createSession(this.documentId).subscribe({
+      next: (session) => {
+        this.sessions.unshift(session);
+        this.selectedSession = session;
+        this.messages = [];
+        this.addWelcomeMessage();
+        this.chatForm.reset();
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  }
+
+  loadMessages(): void {
+
+    if(!this.selectedSession){
+      return;
+    }
+
+    this.chatService.getMessages(this.selectedSession.id).subscribe({
+      next: (messages) => {
+        this.messages = messages.map(message => ({
+          ...message,
+          timestamp: new Date(message.timestamp)
+        }));
+
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  }
+
+  selectSession(session: ChatSession): void {
+    this.selectedSession = session;
+    this.loadMessages();
   }
 }

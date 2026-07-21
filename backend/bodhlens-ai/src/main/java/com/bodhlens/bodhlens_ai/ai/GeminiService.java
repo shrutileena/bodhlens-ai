@@ -10,4 +10,10 @@ public class GeminiService implements LLMService {
 		return "Gemini not integrated yet";
 	}
 
+	@Override
+	public String generateTitle(String question) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

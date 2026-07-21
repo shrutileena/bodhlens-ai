@@ -3,157 +3,173 @@
 
 <div class="chat-container">
 
-    <div class="chat-header">
+    @if(documentId) {
 
-        <h1>🤖 BodhLens AI</h1>
+        <div class="chat-sidebar">
+
+            <button class="new-chat-btn" (click)="createSession()">
+                + New Chat
+            </button>
+
+            <div class="sessions">
+                @for(session of sessions; track session.id) {
+
+                    <div class="session-item"
+                        [class.active]="selectedSession?.id === session.id"
+                        (click)="selectSession(session)">
+                        {{ session.title }}
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    <div class="chat-main">
+
+        <div class="chat-header">
+
+            <h1>🤖 BodhLens AI</h1>
 
 
-        @if(document) {
+            @if(document) {
             <p class="document-name">
                 📄 {{ document.fileName }}
             </p>
-        }
-
-    </div>
-
-
-
-    <div class="chat-messages">
-
-
-        @for(message of messages; track $index) {
-
-        <div class="message"
-             [class.user-message]="message.sender === 'USER'"
-             [class.ai-message]="message.sender === 'AI'">
-
-            <div class="bubble">
-
-                <div class="sender">
-
-                    @if(message.sender === 'AI') {
-                        🤖 BodhLens AI
-                    }
-                    @else {
-                        👤 You
-                    }
-
-                </div>
-
-
-                <div class="message-text">
-                    <!-- {{message.message}} -->
-                    @if(message.expanded || !isLongMessage(message)) {
-                        {{ message.message }}
-                    } @else {
-                        {{ message.message.slice(0, MAX_LENGTH) }}...
-                    }
-                </div>
-                
-                @if(isLongMessage(message)) {
-                    <button class="show-more-btn" type="button" (click)="toggleMessage(message)">
-                    
-                        {{ message.expanded ? 'Show Less' : 'Show More' }}
-                    
-                    </button>
-                }
-
-                <div class="timestamp">
-                    {{message.timestamp | date:'hh:mm a'}}
-                </div>
-
-            </div>
-
-        </div>
-
-        }
-
-
-
-        <!-- Document options when no document selected -->
-
-        @if(!documentId && documents.length > 0) {
-
-        <div class="document-options">
-
-            <p>Select a document:</p>
-
-
-            @for(doc of documents; track doc.id) {
-
-            <button 
-                class="document-option"
-                (click)="openDocument(doc.id)">
-
-                📄 {{doc.fileName}}
-
-            </button>
-
             }
 
         </div>
 
-        }
 
 
-
-        @if(isThinking) {
-
-        <div class="message ai-message">
-
-            <div class="bubble">
-
-                <div class="sender">
-                    🤖 BodhLens AI
-                </div>
+        <div class="chat-messages">
 
 
-                <div class="message-text">
-                    Thinking...
+            @for(message of messages; track $index) {
+
+            <div class="message" [class.user-message]="message.sender === 'USER'"
+                [class.ai-message]="message.sender === 'AI'">
+
+                <div class="bubble">
+
+                    <div class="sender">
+
+                        @if(message.sender === 'AI') {
+                        🤖 BodhLens AI
+                        }
+                        @else {
+                        👤 You
+                        }
+
+                    </div>
+
+
+                    <div class="message-text">
+                        <!-- {{message.message}} -->
+                        @if(message.expanded || !isLongMessage(message)) {
+                        {{ message.message }}
+                        } @else {
+                        {{ message.message.slice(0, MAX_LENGTH) }}...
+                        }
+                    </div>
+
+                    @if(isLongMessage(message)) {
+                    <button class="show-more-btn" type="button" (click)="toggleMessage(message)">
+
+                        {{ message.expanded ? 'Show Less' : 'Show More' }}
+
+                    </button>
+                    }
+
+                    <div class="timestamp">
+                        {{message.timestamp | date:'hh:mm a'}}
+                    </div>
+
                 </div>
 
             </div>
 
+            }
+
+
+
+            <!-- Document options when no document selected -->
+
+            @if(!documentId && documents.length > 0) {
+
+            <div class="document-options">
+
+                <p>Select a document:</p>
+
+
+                @for(doc of documents; track doc.id) {
+
+                <button class="document-option" (click)="openDocument(doc.id)">
+
+                    📄 {{doc.fileName}}
+
+                </button>
+
+                }
+
+            </div>
+
+            }
+
+
+
+            @if(isThinking) {
+
+            <div class="message ai-message">
+
+                <div class="bubble">
+
+                    <div class="sender">
+                        🤖 BodhLens AI
+                    </div>
+
+
+                    <div class="message-text">
+                        Thinking...
+                    </div>
+
+                </div>
+
+            </div>
+
+            }
+
+
+        </div>
+
+
+
+        <!-- Show input only after document selection -->
+
+        @if(documentId) {
+
+        <div class="chat-input">
+
+            <form [formGroup]="chatForm" (ngSubmit)="send()">
+
+
+                <input type="text" placeholder="Ask me anything about this document..." formControlName="question"
+                    [disabled]="isThinking">
+
+
+                <button type="submit" [disabled]="isThinking">
+
+                    <span class="material-symbols-outlined">
+                        send
+                    </span>
+
+                </button>
+
+
+            </form>
+
         </div>
 
         }
-
-
     </div>
-
-
-
-    <!-- Show input only after document selection -->
-
-    @if(documentId) {
-
-    <div class="chat-input">
-
-        <form [formGroup]="chatForm"
-              (ngSubmit)="send()">
-
-
-            <input type="text"
-                   placeholder="Ask me anything about this document..."
-                   formControlName="question"
-                   [disabled]="isThinking">
-
-
-            <button type="submit"
-                    [disabled]="isThinking">
-
-                <span class="material-symbols-outlined">
-                    send
-                </span>
-
-            </button>
-
-
-        </form>
-
-    </div>
-
-    }
-
 
 </div>

@@ -3,6 +3,7 @@ import { inject, Service } from '@angular/core';
 import { ChatRequest } from '../models/chat-request';
 import { Observable } from 'rxjs';
 import { ChatResponse } from '../models/chat-response';
+import { ChatMessage } from '../models/chat-message';
 
 @Service()
 export class ChatService {
@@ -16,5 +17,11 @@ export class ChatService {
             `${this.apiUrl}/${documentId}`,
             req
         );
+    }
+
+    getMessages(sessionId: string): Observable<ChatMessage[]> {
+        return this.httpClient.get<ChatMessage[]>(
+            `http://localhost:8080/api/chat-sessions/${sessionId}/messages`
+        )
     }
 }

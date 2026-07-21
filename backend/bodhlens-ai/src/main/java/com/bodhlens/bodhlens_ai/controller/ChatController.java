@@ -24,9 +24,9 @@ public class ChatController {
 	@Autowired
 	ChatService chatService;
 	
-	@PostMapping("/{documentId}")
-	public ResponseEntity<ChatResponse> chat(@PathVariable UUID documentId, 
+	@PostMapping("/{sessionId}")
+	public ResponseEntity<ChatResponse> chat(@PathVariable UUID sessionId, 
 			@RequestBody @Valid ChatRequest request) throws IOException, InterruptedException {
-		return ResponseEntity.ok(chatService.chat(documentId, request));
+		return ResponseEntity.ok(chatService.chat(sessionId, request));
 	}
 }
