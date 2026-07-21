@@ -24,3 +24,10 @@ server:
 jwt:
   secret: jS+/nKb3fFRFoVeki7vueXEznlgvK9jpnyqSCF3bQRU=
   expiration: 3600000
+
+ai:
+  provider: OLLAMA
+  
+ollama:
+  url: http://localhost:11434
+  model: llama3.2

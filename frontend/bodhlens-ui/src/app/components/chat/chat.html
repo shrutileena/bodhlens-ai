@@ -42,9 +42,21 @@
 
 
                 <div class="message-text">
-                    {{message.message}}
+                    <!-- {{message.message}} -->
+                    @if(message.expanded || !isLongMessage(message)) {
+                        {{ message.message }}
+                    } @else {
+                        {{ message.message.slice(0, MAX_LENGTH) }}...
+                    }
                 </div>
-
+                
+                @if(isLongMessage(message)) {
+                    <button class="show-more-btn" type="button" (click)="toggleMessage(message)">
+                    
+                        {{ message.expanded ? 'Show Less' : 'Show More' }}
+                    
+                    </button>
+                }
 
                 <div class="timestamp">
                     {{message.timestamp | date:'hh:mm a'}}

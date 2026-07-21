@@ -122,6 +122,8 @@ export class Chat implements OnInit {
       })
       .subscribe({
         next: (response) => {
+          // console.log("answer - " + response.answer);
+          
           this.isThinking = false;
 
           this.messages.push({
@@ -152,5 +154,15 @@ export class Chat implements OnInit {
       message: 'Hi! 👋 I can help you understand your documents. Please select a document to start chatting.',
       timestamp: new Date()
     })
+  }
+
+  readonly MAX_LENGTH = 300;
+
+  isLongMessage(message: ChatMessage): boolean {
+    return message.message.length > this.MAX_LENGTH;
+  }
+
+  toggleMessage(message: ChatMessage): void {
+    message.expanded = !message.expanded;
   }
 }
