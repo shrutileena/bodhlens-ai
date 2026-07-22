@@ -247,6 +247,8 @@ export class Chat implements OnInit {
 
   selectSession(session: ChatSession): void {
     this.selectedSession = session;
+    console.log('this.selectedSession-'+this.selectedSession.title);
+    
     this.loadMessages();
   }
 }

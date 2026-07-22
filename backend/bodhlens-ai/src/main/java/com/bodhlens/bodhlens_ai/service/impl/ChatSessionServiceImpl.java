@@ -46,7 +46,7 @@ public class ChatSessionServiceImpl implements ChatSessionService {
 		
 		chatSession = chatSessionRepository.save(chatSession);
 		
-		return new ChatSessionResponse(chatSession.getId(), chatSession.getTitle(), chatSession.getUpdatedAt());
+		return new ChatSessionResponse(chatSession.getId(), chatSession.getTitle(), chatSession.getCreatedAt(), chatSession.getUpdatedAt());
 	}
 
 	@Override
@@ -55,6 +55,7 @@ public class ChatSessionServiceImpl implements ChatSessionService {
 		return sessions.stream().map(session -> new ChatSessionResponse(
 				session.getId(), 
 				session.getTitle(), 
+				session.getCreatedAt(),
 				session.getUpdatedAt())).toList();
 	}
 

@@ -43,6 +43,8 @@ public class ChatServiceImpl implements ChatService {
 //		Thread.sleep(3000);
 //		return new ChatResponse("You asked: " + request.question());
 		
+		long start = System.currentTimeMillis();
+		
 		ChatSession chatSession = chatSessionRepository.findById(sessionId)
 				.orElseThrow(() -> new RuntimeException("Chat session not found"));
 		
@@ -55,18 +57,29 @@ public class ChatServiceImpl implements ChatService {
 		
 		Document document = chatSession.getDocument();
 		
+		long t1 = System.currentTimeMillis();
 		String documentText = documentTextExtractor.extractText(document.getId());
+		System.out.println("Document length = " + documentText.length());
+		System.out.println("Question = " + request.question());
+		System.out.println("Text extraction: " + (System.currentTimeMillis() - t1) + " ms");
 		
+		long t2 = System.currentTimeMillis();
 		LLMRequest llmRequest = new LLMRequest(documentText, request.question());
 		
 		String answer = llmServiceFactory.getService().askQuestion(llmRequest);
+		System.out.println("LLM call: " + (System.currentTimeMillis() - t2) + " ms");
 		
+		
+		long t3 = System.currentTimeMillis();
 		ChatMessage aiMessage = new ChatMessage();
 		aiMessage.setChatSession(chatSession);
 		aiMessage.setSender(MessageSender.AI);
 		aiMessage.setMessage(answer);
 		
 		chatMessageRepository.save(aiMessage);
+		System.out.println("DB save: " + (System.currentTimeMillis() - t3) + " ms");
+		
+		System.out.println("Total: " + (System.currentTimeMillis() - start) + " ms");
 		
 		if(DEFAULT_CHAT_TITLE.equals(chatSession.getTitle())) {
 			String title = llmServiceFactory.getService().generateTitle(request.question());

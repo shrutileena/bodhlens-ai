@@ -1,5 +1,6 @@
 export interface ChatSession {
     id: string,
     title: string,
-    createdAt: string
+    createdAt: string,
+    updatedAt: string
 }

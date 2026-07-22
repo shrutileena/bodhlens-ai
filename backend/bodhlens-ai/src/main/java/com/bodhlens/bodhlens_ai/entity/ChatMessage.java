@@ -3,6 +3,7 @@ package com.bodhlens.bodhlens_ai.entity;
 import com.bodhlens.bodhlens_ai.enums.MessageSender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -22,6 +23,7 @@ public class ChatMessage extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private MessageSender sender;
 	
+	@Column(columnDefinition = "TEXT")
 	private String message;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

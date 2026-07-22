@@ -37,12 +37,18 @@
             </p>
             }
 
+            @if(selectedSession) {
+                <p class="conversation-date">
+                    Conversation started •
+                    {{ selectedSession.createdAt | date:'MMM d, y • h:mm a' }}
+                </p>
+            }
+
         </div>
 
 
 
         <div class="chat-messages">
-
 
             @for(message of messages; track $index) {
 
